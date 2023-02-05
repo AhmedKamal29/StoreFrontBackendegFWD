@@ -12,7 +12,7 @@ const {
   MODE,
 } = process.env;
 
-let client;
+let client = new Pool({});
 
 if (MODE === 'dev') {
   client = new Pool({
@@ -21,7 +21,9 @@ if (MODE === 'dev') {
     user: DATABASE_USER,
     password: DATABASE_PASSWORD,
   });
-} else {
+}
+
+if (MODE === 'test') {
   client = new Pool({
     host: DATABASE_HOST,
     database: DATABASE_TEST_DB,
@@ -29,4 +31,5 @@ if (MODE === 'dev') {
     password: DATABASE_PASSWORD,
   });
 }
+
 export default client;
