@@ -1,11 +1,11 @@
 import client from '../pgdb';
 
 export type Product = {
-  id: number;
+  id?: number;
   product_name: string;
   product_price: number;
   Product_category: string;
-  Product_demand: number | null;
+  Product_demand?: number;
 };
 
 export class storeProducts {
