@@ -5,15 +5,15 @@ export type Product = {
   product_name: string;
   product_price: number;
   Product_category: string;
-  Product_demand?: number;
+  Product_demand?: number; // an optional attrinute thatcould be ignored upon new creationthat identifies the number of times the product has been ordered
 };
 
-export class storeProducts {
+export class StoreProducts {
   async index(): Promise<Product[]> {
     try {
       const connection = await client.connect();
-      const sql = 'SELECT * FROM Products';
-      const result = await connection.query(sql);
+      const getAllProducts = 'SELECT * FROM Products';
+      const result = await connection.query(getAllProducts);
       connection.release();
       return result.rows;
     } catch (error) {
@@ -23,11 +23,11 @@ export class storeProducts {
     }
   }
 
-  async show(id: string): Promise<Product[]> {
+  async show(id: number): Promise<Product[]> {
     try {
       const connection = await client.connect();
-      const sql: string = `SELECT * FROM Products WHERE id=${id}`;
-      const result = await connection.query(sql);
+      const showProductQuery: string = `SELECT * FROM Products WHERE id=${id}`;
+      const result = await connection.query(showProductQuery);
       connection.release();
       return result.rows;
     } catch (error) {
@@ -57,9 +57,9 @@ export class storeProducts {
   async RecommendedFive(): Promise<Product[]> {
     try {
       const connection = await client.connect();
-      const query =
+      const RecomendationQuery =
         'SELECT TOP 5 products_name, products_price FROM Products ORDER BY id DESC LIMIT 5';
-      const result = await connection.query(query);
+      const result = await connection.query(RecomendationQuery);
       connection.release();
       return result.rows;
     } catch (error) {
@@ -70,8 +70,8 @@ export class storeProducts {
   async SortByCategory(category: string): Promise<Product[] | null> {
     try {
       const connection = await client.connect();
-      const query = 'SELECT * FROM products WHERE category = $1';
-      const result = await connection.query(query, [category]);
+      const SortingQuery = 'SELECT * FROM products WHERE category = $1';
+      const result = await connection.query(SortingQuery, [category]);
       connection.release();
       if (result.rows.length === 0) {
         return null;

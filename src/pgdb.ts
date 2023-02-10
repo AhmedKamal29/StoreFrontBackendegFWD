@@ -8,28 +8,33 @@ const {
   DATABASE_USER,
   DATABASE_NAME,
   DATABASE_PASSWORD,
-  DATABASE_TEST_DB,
-  MODE,
+  // DATABASE_TEST_DB,
+  // MODE,
 } = process.env;
 
-let client = new Pool({});
+const client = new Pool({
+  host: DATABASE_HOST,
+  database: DATABASE_NAME,
+  user: DATABASE_USER,
+  password: DATABASE_PASSWORD,
+});
 
-if (MODE === 'dev') {
-  client = new Pool({
-    host: DATABASE_HOST,
-    database: DATABASE_NAME,
-    user: DATABASE_USER,
-    password: DATABASE_PASSWORD,
-  });
-}
+// if (MODE === 'dev') {
+//   client = new Pool({
+//     host: DATABASE_HOST,
+//     database: DATABASE_NAME,
+//     user: DATABASE_USER,
+//     password: DATABASE_PASSWORD,
+//   });
+// }
 
-if (MODE === 'test') {
-  client = new Pool({
-    host: DATABASE_HOST,
-    database: DATABASE_TEST_DB,
-    user: DATABASE_USER,
-    password: DATABASE_PASSWORD,
-  });
-}
+// if (MODE === 'test') {
+//   client = new Pool({
+//     host: DATABASE_HOST,
+//     database: DATABASE_TEST_DB,
+//     user: DATABASE_USER,
+//     password: DATABASE_PASSWORD,
+//   });
+// }
 
 export default client;
