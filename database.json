@@ -1,16 +1,41 @@
 {
+    "defaultENV": {
+        "ENV": "NODE_ENV"
+    },
     "dev": {
         "driver": "pg",
-        "host": "5432",
-        "database": "storefronts",
-        "user": "postgres",
-        "password": "29998"
+        "host": {
+            "ENV": "DATABASE_HOST"
+        },
+        "port": {
+            "ENV": "DATABASE_PORT"
+        },
+        "database": {
+            "ENV": "DATABASE_DEV_DB"
+        },
+        "user": {
+            "ENV": "DATABASE_USER"
+        },
+        "password": {
+            "ENV": "DATABASE_PASSWORD"
+        }
     },
     "test": {
         "driver": "pg",
-        "host": "5432",
-        "database": "testingdb",
-        "user": "postgres",
-        "password": "29998"
+        "host": {
+            "ENV": "DATABASE_HOST"
+        },
+        "port": {
+            "ENV": "DATABASE_PORT"
+        },
+        "database": {
+            "ENV": "DATABASE_TEST_DB"
+        },
+        "user": {
+            "ENV": "DATABASE_USER"
+        },
+        "password": {
+            "ENV": "DATABASE_PASSWORD"
+        }
     }
 }
