@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import express, { Request, Response } from 'express';
 import { StoreProducts } from '../models/products';
 // import { verifyAuth } from '../middleware/jwt';
@@ -29,9 +28,9 @@ const ShowSpacificProduct = async (req: Request, res: Response) => {
 const CreateNewProduct = async (req: Request, res: Response) => {
   try {
     const product = {
-      product_name: req.body.name,
-      product_price: req.body.price,
-      product_category: req.body.category,
+      productName: req.body.productName,
+      productPrice: req.body.productPrice,
+      productCategory: req.body.productCategory,
     };
 
     const result = await store.create(product);
@@ -47,10 +46,8 @@ const deleteProduct = async (req: Request, res: Response) => {
     if (product === null) {
       res.status(404).json({ message: 'no such product exist' });
     } else {
-      const result = await store.delete(parseInt(req.params['id']));
-      if (result === null) {
-        res.status(200).json({ message: 'deleted successfully' });
-      }
+      await store.delete(parseInt(req.params['id']));
+      res.status(200).json({ message: 'deleted successfully' });
     }
   } catch (error) {
     res.status(500).json({ message: error });

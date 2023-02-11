@@ -16,7 +16,9 @@ app.use(express.json());
 products(app);
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('the project begins here');
+  res.send(
+    '<h2 style="text-align:center; margin:5%">Hello There 👋🏻 again ! <br> This is the second project in the nanodegree hope you enjoy the code <br> Launch postman and take this project for a spin 😉 </h2>'
+  );
 });
 
 app.listen(port, () => {
