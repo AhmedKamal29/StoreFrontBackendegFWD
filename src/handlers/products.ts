@@ -1,11 +1,10 @@
 /* eslint-disable camelcase */
 import express, { Request, Response } from 'express';
 import { StoreProducts } from '../models/products';
-import { verifyAuth } from '../middleware/jwt';
+// import { verifyAuth } from '../middleware/jwt';
 
 const store = new StoreProducts();
-
-const index = async (_req: Request, res: Response) => {
+const GetAllProducts = async (_req: Request, res: Response) => {
   try {
     const result = await store.index();
     res.json(result);
@@ -14,7 +13,7 @@ const index = async (_req: Request, res: Response) => {
   }
 };
 
-const show = async (req: Request, res: Response) => {
+const ShowSpacificProduct = async (req: Request, res: Response) => {
   try {
     const result = await store.show(parseInt(req.params['id']));
     if (result === null) {
@@ -27,7 +26,7 @@ const show = async (req: Request, res: Response) => {
   }
 };
 
-const create = async (req: Request, res: Response) => {
+const CreateNewProduct = async (req: Request, res: Response) => {
   try {
     const product = {
       product_name: req.body.name,
@@ -42,10 +41,27 @@ const create = async (req: Request, res: Response) => {
   }
 };
 
+const deleteProduct = async (req: Request, res: Response) => {
+  try {
+    const product = await store.show(parseInt(req.params['id']));
+    if (product === null) {
+      res.status(404).json({ message: 'no such product exist' });
+    } else {
+      const result = await store.delete(parseInt(req.params['id']));
+      if (result === null) {
+        res.status(200).json({ message: 'deleted successfully' });
+      }
+    }
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+};
+
 const products = (app: express.Application) => {
-  app.get('/products', index);
-  app.get('/products/product/:id', show);
-  app.post('/products/add', verifyAuth, create);
+  app.get('/products', GetAllProducts);
+  app.get('/products/product/:id', ShowSpacificProduct);
+  app.post('/products/add', CreateNewProduct);
+  app.delete('/products/product/delete/:id', deleteProduct);
 };
 
 export default products;
