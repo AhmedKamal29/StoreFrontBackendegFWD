@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-export const verifyAUth = (req: Request, res: Response, next: NextFunction) => {
+export const verifyAuth = (req: Request, res: Response, next: NextFunction) => {
   try {
     const token = jwt.verify(
       req.headers['authorization'] as unknown as string,

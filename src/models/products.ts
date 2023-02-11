@@ -4,8 +4,8 @@ export type Product = {
   id?: number;
   product_name: string;
   product_price: number;
-  Product_category: string;
-  Product_demand?: number; // an optional attrinute thatcould be ignored upon new creationthat identifies the number of times the product has been ordered
+  product_category: string;
+  product_demand?: number; // an optional attrinute thatcould be ignored upon new creationthat identifies the number of times the product has been ordered
 };
 
 export class StoreProducts {
@@ -45,7 +45,7 @@ export class StoreProducts {
       const result = await connection.query(newProductquery, [
         p.product_name,
         p.product_price,
-        p.Product_category,
+        p.product_category,
       ]);
       connection.release();
       return result.rows[0];
