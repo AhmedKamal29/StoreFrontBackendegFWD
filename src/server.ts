@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import cors from 'cors';
 import products from './handlers/products.controller';
 import users from './handlers/users.controller';
+import orders from './handlers/orders.controller';
 
 const app: express.Application = express();
 const port: number = 3000;
@@ -16,6 +17,7 @@ app.use(express.json());
 
 products(app);
 users(app);
+orders(app);
 
 app.get('/', (req: Request, res: Response) => {
   res.send(
