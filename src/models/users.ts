@@ -58,18 +58,18 @@ export class StoreUsers {
     }
   }
 
-  async authinticate(u: User): Promise<User | null> {
+  async authenticate(u: User): Promise<User | null> {
     try {
       const connection = await client.connect();
-      const authentication = 'SELECT * FROM users WHERE FName = $1';
+      const authentication = 'SELECT * FROM users WHERE fname = $1 ';
       const result = await connection.query(authentication, [u.FName]);
       connection.release();
       if (result.rows.length === 0) {
         throw new Error('User not found');
       }
       const authenticate = bcrypt.compareSync(
-        u.PasswordDigest + process.env.BCRYPT_PASSWORD,
-        result.rows[0].password
+        u.PasswordDigest + process.env.SALT_ROUNDS,
+        result.rows[0].password_digest
       );
       if (!authenticate) {
         return null;
