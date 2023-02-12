@@ -12,6 +12,20 @@ const GetAllUsers = async (req: Request, res: Response) => {
     res.status(500).json({ message: error });
   }
 };
+
+const ShowSpacificUser = async (req: Request, res: Response) => {
+  try {
+    const user = await store.show(parseInt(req.params.id));
+    if (user !== null) {
+      res.json(user);
+    } else {
+      res.status(404).json({ message: 'The Spacified user not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+};
+
 const CreateNewUser = async (req: Request, res: Response) => {
   try {
     const user = {
@@ -50,6 +64,7 @@ const AuthUser = async (req: Request, res: Response) => {
 
 const users = (app: express.Application) => {
   app.get('/users', GetAllUsers);
+  app.get('/users/:id', ShowSpacificUser);
   app.post('/users/signUp', CreateNewUser);
   app.post('/users/Login', AuthUser);
 };
