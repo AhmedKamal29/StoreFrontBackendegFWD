@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import express, { Request, Response } from 'express';
 import { StoreOrders } from '../models/orders';
-// import { verifyAuth } from '../middleware/jwt';
+import { verifyAuth } from '../middleware/jwt';
 
 const store = new StoreOrders();
 const GetAllOrders = async (_req: Request, res: Response) => {
@@ -68,10 +68,10 @@ const GetUserCompletedOrder = async (req: Request, res: Response) => {
 
 const orders = (app: express.Application) => {
   app.get('/orders', GetAllOrders);
-  app.get('/orders/user/:id', GetUserOrder);
+  app.get('/orders/user/:id', verifyAuth, GetUserOrder);
   app.post('/orders/user', CreateNewOrder);
-  app.post('/orders/product/add', AddProductsToOrder);
-  app.get('/orders/user/completed/:id', GetUserCompletedOrder);
+  app.post('/orders/product/add', verifyAuth, AddProductsToOrder);
+  app.get('/orders/user/completed/:id', verifyAuth, GetUserCompletedOrder);
 };
 
 export default orders;

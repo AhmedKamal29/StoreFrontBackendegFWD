@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import { StoreProducts } from '../models/products';
-// import { verifyAuth } from '../middleware/jwt';
+import { verifyAuth } from '../middleware/jwt';
 
 const store = new StoreProducts();
 const GetAllProducts = async (_req: Request, res: Response) => {
@@ -57,7 +57,7 @@ const deleteProduct = async (req: Request, res: Response) => {
 const products = (app: express.Application) => {
   app.get('/products', GetAllProducts);
   app.get('/products/product/:id', ShowSpacificProduct);
-  app.post('/products/add', CreateNewProduct);
+  app.post('/products/add', verifyAuth, CreateNewProduct);
   app.delete('/products/product/delete/:id', deleteProduct);
 };
 

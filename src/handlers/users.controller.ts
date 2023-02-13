@@ -64,7 +64,7 @@ const AuthUser = async (req: Request, res: Response) => {
 
 const users = (app: express.Application) => {
   app.get('/users', verifyAuth, GetAllUsers);
-  app.get('/users/:id', ShowSpacificUser);
+  app.get('/users/:id', verifyAuth, ShowSpacificUser);
   app.post('/users/signUp', CreateNewUser);
   app.post('/users/Login', AuthUser);
 };
