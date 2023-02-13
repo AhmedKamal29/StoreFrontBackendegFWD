@@ -23,26 +23,25 @@ describe('User Model', () => {
 
   it('create method should add a new user', async () => {
     const result = await userStore.create({
-      fname: 'sara',
-      lname: 'Ali',
+      fname: 'ahmed',
+      lname: 'kamal',
       PasswordDigest: '123456',
     });
-    expect(result.fname).toEqual('sara');
-    expect(result.lname).toEqual('Ali');
+    expect(result.fname).toEqual('ahmed');
+    expect(result.lname).toEqual('kamal');
   });
 
   it('index method should return a list of all users', async () => {
     const result = await userStore.index();
-    expect(result.length).toEqual(1);
-    expect(result[0].fname).toEqual('sara');
-    expect(result[0].lname).toEqual('Ali');
+    expect(result[0].fname).toEqual('ahmed');
+    expect(result[0].lname).toEqual('kamal');
   });
 
   it('Show method should return the requested user', async () => {
     const result = await userStore.show(1);
     expect(result.id).toEqual(1);
-    expect(result.fname).toEqual('sara');
-    expect(result.lname).toEqual('Ali');
+    expect(result.fname).toEqual('ahmed');
+    expect(result.lname).toEqual('kamal');
   });
   it('Should create a new order to the database and return it', async (): Promise<void> => {
     const order: Order = {

@@ -23,7 +23,6 @@ if (ENV?.trim() === 'dev') {
     password: DATABASE_PASSWORD,
     port: parseInt(DATABASE_PORT as string, 10),
   });
-  console.log(ENV);
 }
 
 if (ENV?.trim() === 'test') {
@@ -34,7 +33,6 @@ if (ENV?.trim() === 'test') {
     password: DATABASE_PASSWORD,
     port: parseInt(DATABASE_PORT as string, 10),
   });
-  console.log(ENV);
 }
 
 export default client;

@@ -9,14 +9,8 @@ export const verifyAuth = (req: Request, res: Response, next: NextFunction) => {
     );
     if (token) {
       next();
-    } else {
-      res.status(401).send('Unauthorized access');
     }
   } catch (error) {
-    res
-      .status(500)
-      .send(
-        `sorry an error has been caused from our end its not your fault 😉 :  ${error}`
-      );
+    res.status(401).send('Access denied ⛔');
   }
 };

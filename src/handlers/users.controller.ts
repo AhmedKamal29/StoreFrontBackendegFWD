@@ -18,7 +18,7 @@ const ShowSpacificUser = async (req: Request, res: Response) => {
     const user = await store.show(parseInt(req.params.id));
     if (user !== null) {
       res.json(user);
-    } else {
+    } else if (user === null) {
       res.status(404).json({ message: 'The Spacified user not found' });
     }
   } catch (error) {
@@ -34,8 +34,11 @@ const CreateNewUser = async (req: Request, res: Response) => {
       PasswordDigest: req.body.password_digest,
     };
     const newUser = await store.create(user);
-    jwt.sign({ user: newUser }, process.env.TOKEN_SECRET as string);
-    res.json({ newUser });
+    const token = jwt.sign(
+      { user: newUser },
+      process.env.TOKEN_SECRET as string
+    );
+    res.json({ ...newUser, token });
   } catch (error) {
     res.status(500).json({ message: error });
   }
