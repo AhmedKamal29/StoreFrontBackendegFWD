@@ -53,7 +53,7 @@ const AuthUser = async (req: Request, res: Response) => {
         { user: user },
         process.env.TOKEN_SECRET as string
       );
-      res.json({ user, token });
+      res.json({ ...user, token });
     } else {
       res.status(401).json({ message: 'Unauthorized' });
     }
