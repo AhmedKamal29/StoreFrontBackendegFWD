@@ -47,7 +47,7 @@ const deleteProduct = async (req: Request, res: Response) => {
       res.status(404).json({ message: 'no such product exist' });
     } else {
       await store.delete(parseInt(req.params['id']));
-      res.status(200).json('deleted successfully');
+      res.status(200).json({ message: 'deleted successfully' });
     }
   } catch (error) {
     res.status(500).json({ message: error });
