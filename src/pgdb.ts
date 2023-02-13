@@ -15,7 +15,7 @@ const {
 
 let client = new Pool();
 
-if (ENV === 'dev') {
+if (ENV?.trim() === 'dev') {
   client = new Pool({
     host: DATABASE_HOST,
     database: DATABASE_DEV_DB,
@@ -23,9 +23,10 @@ if (ENV === 'dev') {
     password: DATABASE_PASSWORD,
     port: parseInt(DATABASE_PORT as string, 10),
   });
+  console.log(ENV);
 }
 
-if (ENV === 'test') {
+if (ENV?.trim() === 'test') {
   client = new Pool({
     host: DATABASE_HOST,
     database: DATABASE_TEST_DB,
@@ -33,6 +34,7 @@ if (ENV === 'test') {
     password: DATABASE_PASSWORD,
     port: parseInt(DATABASE_PORT as string, 10),
   });
+  console.log(ENV);
 }
 
 export default client;

@@ -29,8 +29,8 @@ const ShowSpacificUser = async (req: Request, res: Response) => {
 const CreateNewUser = async (req: Request, res: Response) => {
   try {
     const user = {
-      FName: req.body.fname,
-      LName: req.body.lname,
+      fname: req.body.fname,
+      lname: req.body.lname,
       PasswordDigest: req.body.password_digest,
     };
     const newUser = await store.create(user);
@@ -42,8 +42,8 @@ const CreateNewUser = async (req: Request, res: Response) => {
 };
 const AuthUser = async (req: Request, res: Response) => {
   const newUser: User = {
-    FName: req.body.fname,
-    LName: req.body.lname,
+    fname: req.body.fname,
+    lname: req.body.lname,
     PasswordDigest: req.body.password_digest,
   };
   try {

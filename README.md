@@ -56,8 +56,9 @@ npm run lint
 CREATE DATABASE store_development;
 CREATE DATABASE store_testing;
 ```
-3. the third and final step, use `db-migrate up` to fill the databse ith the required tables. now your databse is set 😉
-4. PS: Databse is running on port: 5432 
+
+3. The third and final step, use `db-migrate up` to fill the databse ith the required tables. now your databse is set 😉
+4. Databse is running on `port: 5432` and Server is running on `port: 3000`
 
 <h3> .env config </h3>
 
@@ -67,21 +68,22 @@ Create `.env` file in the root directory and use the following data as your setu
 # global env variable
 ENV = dev
 
-# databse variables 
+# databse variables
 DATABASE_HOST
-DATABASE_PORT
+DATABASE_PORT =5432
 DATABASE_DEV_DB
 DATABASE_TEST_DB
 DATABASE_USER
 DATABASE_PASSWORD
 
-# password protection varibales  
+# password protection varibales
 BCRYPT_PASSWORD
 SALT_ROUNDS
 
 # Token secret varibales
 TOKEN_SECRET
 ```
+
 <h3 align="center">Now that you have set the env file you are all set and ready good to go😉</h3>
 
 <h1>File Structure</h1>

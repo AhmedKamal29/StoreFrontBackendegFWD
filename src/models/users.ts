@@ -3,8 +3,8 @@ import bcrypt from 'bcrypt';
 
 export type User = {
   id?: number;
-  FName: string;
-  LName: string;
+  fname: string;
+  lname: string;
   PasswordDigest: string;
 };
 
@@ -23,15 +23,12 @@ export class StoreUsers {
     }
   }
 
-  async show(userId: number): Promise<User | null> {
+  async show(userId: number): Promise<User> {
     try {
       const connection = await client.connect();
       const GetSpacificUser = 'SELECT * FROM users WHERE id = $1';
       const result = await connection.query(GetSpacificUser, [userId]);
       connection.release();
-      if (result.rows.length === 0) {
-        return null;
-      }
       const user = result.rows[0];
       return user;
     } catch (error) {
@@ -50,7 +47,7 @@ export class StoreUsers {
         u.PasswordDigest + process.env.BCRYPT_PASSWORD,
         parseInt(process.env.SALT_ROUNDS as string)
       );
-      const result = await connection.query(NewUser, [u.FName, u.LName, hash]);
+      const result = await connection.query(NewUser, [u.fname, u.lname, hash]);
       connection.release();
       return result.rows[0];
     } catch (error) {
@@ -62,7 +59,7 @@ export class StoreUsers {
     try {
       const connection = await client.connect();
       const authentication = 'SELECT * FROM users WHERE fname = $1 ';
-      const result = await connection.query(authentication, [u.FName]);
+      const result = await connection.query(authentication, [u.fname]);
       connection.release();
       if (result.rows.length === 0) {
         throw new Error('User not found');

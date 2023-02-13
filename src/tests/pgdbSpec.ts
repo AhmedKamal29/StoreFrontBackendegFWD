@@ -1,9 +1,9 @@
 import client from '../pgdb';
 
-describe('Database', () => {
-  it('should connect', async () => {
-    const conn = await client.connect();
-    expect(conn).toBeTruthy();
-    conn.release();
+describe('Database connection test', () => {
+  it('connect successfully to database', async () => {
+    const connection = await client.connect();
+    expect(connection).toBeTruthy();
+    connection.release();
   });
 });

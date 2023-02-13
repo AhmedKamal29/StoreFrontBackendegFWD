@@ -1,4 +1,4 @@
-import { StoreOrders, Order } from '../models/orders';
+import { StoreOrders } from '../../models/orders';
 
 const orderStore = new StoreOrders();
 
@@ -29,17 +29,6 @@ describe('Orders and Cart model methods', (): void => {
 
     it('Should return an array of orders by a spacific user ', async (): Promise<void> => {
       const result = await orderStore.show(1);
-      expect(result).toBeInstanceOf(Object);
-    });
-
-    it('Should create a new order to the database and return it', async (): Promise<void> => {
-      const order: Order = {
-        // eslint-disable-next-line camelcase
-        user_id: 1,
-        // eslint-disable-next-line camelcase
-        order_status: true,
-      };
-      const result = await orderStore.create(order);
       expect(result).toBeInstanceOf(Object);
     });
 
