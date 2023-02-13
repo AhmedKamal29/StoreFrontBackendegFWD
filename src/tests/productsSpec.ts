@@ -1,51 +1,50 @@
-import { StoreOrders, Order } from '../models/orders';
+import { StoreProducts, Product } from '../models/products';
 
-const orderStore = new StoreOrders();
+const ProductStore = new StoreProducts();
 
 describe('Orders and Cart model methods', (): void => {
   describe('Orders and Cart Methods Checking', (): void => {
     it('Show all Orders method should exist', (): void => {
-      expect(orderStore.index).toBeDefined();
+      expect(ProductStore.index).toBeDefined();
     });
 
     it('Show Orders by a User method should exist', (): void => {
-      expect(orderStore.show(1)).toBeDefined();
+      expect(ProductStore.show(1)).toBeDefined();
     });
 
     it('Creating orders method should exist', (): void => {
-      expect(orderStore.create).toBeDefined();
+      expect(ProductStore.create).toBeDefined();
     });
 
     it('Show Completed Orders by a User method should exist', (): void => {
-      expect(orderStore.showCompleted).toBeDefined();
+      expect(ProductStore.delete).toBeDefined();
     });
   });
 
   describe('Orders and Cart model methods', (): void => {
     it('Should return array of orders in table order', async (): Promise<void> => {
-      const result = await orderStore.index();
+      const result = await ProductStore.index();
       expect(result).toBeInstanceOf(Array);
     });
 
     it('Should return an array of orders by a spacific user ', async (): Promise<void> => {
-      const result = await orderStore.show(1);
+      const result = await ProductStore.show(1);
       expect(result).toBeInstanceOf(Object);
     });
 
     it('Should create a new order to the database and return it', async (): Promise<void> => {
-      const order: Order = {
-        // eslint-disable-next-line camelcase
-        user_id: 1,
-        // eslint-disable-next-line camelcase
-        order_status: true,
+      const product: Product = {
+        productName: 'iphone 14',
+        productPrice: 1000,
+        productCategory: 'smartphone',
       };
-      const result = await orderStore.create(order);
+      const result = await ProductStore.create(product);
       expect(result).toBeInstanceOf(Object);
     });
 
     it('Should return all the completed orders a spacific user', async (): Promise<void> => {
-      const result = await orderStore.showCompleted(1);
-      expect(result).toBeInstanceOf(Object);
+      const result = await ProductStore.delete(1);
+      expect(result).toBeInstanceOf(String);
     });
   });
 });

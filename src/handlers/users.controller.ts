@@ -41,19 +41,19 @@ const CreateNewUser = async (req: Request, res: Response) => {
   }
 };
 const AuthUser = async (req: Request, res: Response) => {
-  const newUser: User = {
-    FName: req.body.fname,
-    LName: req.body.lname,
-    PasswordDigest: req.body.password_digest,
-  };
   try {
+    const newUser: User = {
+      FName: req.body.fname,
+      LName: req.body.lname,
+      PasswordDigest: req.body.password_digest,
+    };
     const user = await store.authenticate(newUser);
     if (user) {
       const token = jwt.sign(
         { user: user },
         process.env.TOKEN_SECRET as string
       );
-      res.json({ user, token });
+      res.json({ token });
     } else {
       res.status(401).json({ message: 'Unauthorized' });
     }
