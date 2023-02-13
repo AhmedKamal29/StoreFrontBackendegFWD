@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { StoreUsers, User } from '../models/users';
 import jwt from 'jsonwebtoken';
-// import { verifyAuth } from '../middleware/jwt';
+import { verifyAuth } from '../middleware/jwt';
 
 const store = new StoreUsers();
 const GetAllUsers = async (req: Request, res: Response) => {
@@ -53,7 +53,7 @@ const AuthUser = async (req: Request, res: Response) => {
         { user: user },
         process.env.TOKEN_SECRET as string
       );
-      res.json({ token });
+      res.json({ user, token });
     } else {
       res.status(401).json({ message: 'Unauthorized' });
     }
@@ -63,7 +63,7 @@ const AuthUser = async (req: Request, res: Response) => {
 };
 
 const users = (app: express.Application) => {
-  app.get('/users', GetAllUsers);
+  app.get('/users', verifyAuth, GetAllUsers);
   app.get('/users/:id', ShowSpacificUser);
   app.post('/users/signUp', CreateNewUser);
   app.post('/users/Login', AuthUser);

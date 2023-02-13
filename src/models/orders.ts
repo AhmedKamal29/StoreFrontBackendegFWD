@@ -5,8 +5,8 @@ import client from '../pgdb';
 // regular order data
 export type Order = {
   id?: number;
-  user_id: number;
-  order_status: boolean;
+  user_id: number | undefined;
+  order_status: boolean | undefined;
 };
 
 // order details data

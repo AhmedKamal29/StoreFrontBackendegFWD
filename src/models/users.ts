@@ -47,7 +47,7 @@ export class StoreUsers {
         'INSERT INTO Users (fname,lname,password_digest) VALUES ($1, $2, $3) RETURNING *';
       const connection = await client.connect();
       const hash = bcrypt.hashSync(
-        u.PasswordDigest + process.env.SALT_ROUNDS,
+        u.PasswordDigest + process.env.BCRYPT_PASSWORD,
         parseInt(process.env.SALT_ROUNDS as string)
       );
       const result = await connection.query(NewUser, [u.FName, u.LName, hash]);
@@ -68,7 +68,7 @@ export class StoreUsers {
         throw new Error('User not found');
       }
       const authenticate = bcrypt.compareSync(
-        u.PasswordDigest + process.env.SALT_ROUNDS,
+        u.PasswordDigest + process.env.BCRYPT_PASSWORD,
         result.rows[0].password_digest
       );
       if (!authenticate) {

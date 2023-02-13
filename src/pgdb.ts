@@ -4,39 +4,35 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const {
-  // NODE_ENV,
+  ENV,
   DATABASE_HOST,
   DATABASE_PORT,
   DATABASE_DEV_DB,
-  // DATABASE_test_DB,
+  DATABASE_TEST_DB,
   DATABASE_USER,
   DATABASE_PASSWORD,
 } = process.env;
 
-const client = new Pool({
-  host: DATABASE_HOST,
-  database: DATABASE_DEV_DB,
-  user: DATABASE_USER,
-  password: DATABASE_PASSWORD,
-  port: parseInt(DATABASE_PORT as string, 10),
-});
+let client = new Pool();
 
-// if (MODE === 'dev') {
-//   client = new Pool({
-//     host: DATABASE_HOST,
-//     database: DATABASE_NAME,
-//     user: DATABASE_USER,
-//     password: DATABASE_PASSWORD,
-//   });
-// }
+if (ENV === 'dev') {
+  client = new Pool({
+    host: DATABASE_HOST,
+    database: DATABASE_DEV_DB,
+    user: DATABASE_USER,
+    password: DATABASE_PASSWORD,
+    port: parseInt(DATABASE_PORT as string, 10),
+  });
+}
 
-// if (MODE === 'test') {
-//   client = new Pool({
-//     host: DATABASE_HOST,
-//     database: DATABASE_TEST_DB,
-//     user: DATABASE_USER,
-//     password: DATABASE_PASSWORD,
-//   });
-// }
+if (ENV === 'test') {
+  client = new Pool({
+    host: DATABASE_HOST,
+    database: DATABASE_TEST_DB,
+    user: DATABASE_USER,
+    password: DATABASE_PASSWORD,
+    port: parseInt(DATABASE_PORT as string, 10),
+  });
+}
 
 export default client;
