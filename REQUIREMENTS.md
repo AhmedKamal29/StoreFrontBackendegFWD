@@ -1,42 +1,55 @@
-# API Requirements
-The company stakeholders want to create an online storefront to showcase their great product ideas. Users need to be able to browse an index of all products, see the specifics of a single product, and add products to an order that they can view in a cart page. You have been tasked with building the API that will support this application, and your coworker is building the frontend.
-
-These are the notes from a meeting with the frontend developer that describe what endpoints the API needs to supply, as well as data shapes the frontend and backend have agreed meet the requirements of the application. 
-
 ## API Endpoints
+
 #### Products
-- Index 
-- Show
-- Create [token required]
-- [OPTIONAL] Top 5 most popular products 
-- [OPTIONAL] Products by category (args: product category)
+
+- Index: `'/products' GET` for getting all the products in table products
+- Show: `'/products/product/:id' GET` for getting the requested product from table products
+- Create `[token required]: '/products/add' POST` for creating a new product and return it
+- Delete: `'/products/product/delete/:id' DELETE` for deleting the requested product
 
 #### Users
-- Index [token required]
-- Show [token required]
-- Create N[token required]
+
+- Index [token required]: `'/users' GET` for getting all the users
+- Show [token required]: `'/users/:id' GET` for getting the requested user
+- Create: `'/users/signUp' POST` for creating a new user
+- Login (Auth): `'/users/Login' POST` for logging in and getting a token
 
 #### Orders
-- Current Order by user (args: user id)[token required]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]
+
+- Index: `'/orders' GET` for getting all the orders that exists
+- Current Order by user (args: user id)[token required]: `'/orders/user/:id' GET` for getting all of the orders of the requested user
+- [OPTIONAL] Completed Orders by user (args: user id)[token required]: `'/orders/user/completed/:id' GET` for getting ONLY completed order for a requested user
+- Create Order[token required]: `'/orders/user' POST` for creating a new order
+- Add products [token required]: `'/orders/product/add' POST` for adding a product to an existing order
 
 ## Data Shapes
+
 #### Product
--  id
-- name
-- price
-- [OPTIONAL] category
+
+- id `SERIAL PRIMARY  KEY`
+- product_name `VARCHAR`
+- product_price `MONEY`
+- Product_category `VARCHAR`
 
 #### User
-- id
-- firstName
-- lastName
-- password
+
+- id `SERIAL PRIMARY KEY`
+- fname `VARCHAR`
+- lname `VARCHAR`
+- password_digest `VARCHAR`
 
 #### Orders
-- id
-- id of each product in the order
-- quantity of each product in the order
-- user_id
-- status of order (active or complete)
 
+- id `SERIAL PRIMARY KEY`
+- user_id `INTEGER`
+- order_status `BOOLEAN`
+- FOREIGN KEY (user_id) `REFERENCES users(id)`
+
+#### Carts
+
+- id `SERIAL PRIMARY KEY`
+- order_id `INTEGER NOT NULL`
+- product_id `INTEGER NOT NULL`
+- quantity `INTEGER NOT NULL`
+- FOREIGN KEY (order_id) `REFERENCES orders (id) ON DELETE CASCADE`
+- FOREIGN KEY (product_id) `REFERENCES products (id) ON DELETE CASCADE`
