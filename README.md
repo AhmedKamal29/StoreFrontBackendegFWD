@@ -57,7 +57,7 @@ CREATE DATABASE store_development;
 CREATE DATABASE store_testing;
 ```
 3. the third and final step, use `db-migrate up` to fill the databse ith the required tables. now your databse is set 😉
-
+PS: Databse is running on port: 5432 
 <h3> .env config </h3>
 
 Create `.env` file in the root directory and use the following data as your setup.
